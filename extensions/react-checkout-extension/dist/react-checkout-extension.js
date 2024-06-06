@@ -1161,7 +1161,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo2(create, deps) {
+          function useMemo3(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1933,7 +1933,7 @@
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
           exports.useLayoutEffect = useLayoutEffect;
-          exports.useMemo = useMemo2;
+          exports.useMemo = useMemo3;
           exports.useReducer = useReducer;
           exports.useRef = useRef2;
           exports.useState = useState2;
@@ -19140,8 +19140,11 @@
   // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/BlockStack/BlockStack.mjs
   var BlockStack = createRemoteComponent("BlockStack");
 
-  // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/Image/Image.mjs
-  var Image = createRemoteComponent("Image");
+  // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/InlineStack/InlineStack.mjs
+  var InlineStack = createRemoteComponent("InlineStack");
+
+  // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/Select/Select.mjs
+  var Select = createRemoteComponent("Select");
 
   // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/Text/Text.mjs
   var Text = createRemoteComponent("Text");
@@ -19474,11 +19477,20 @@ ${errorInfo.componentStack}`);
     }
   };
 
-  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/components/Image/Image.mjs
-  var Image2 = createRemoteReactComponent(Image);
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/components/BlockStack/BlockStack.mjs
+  var BlockStack2 = createRemoteReactComponent(BlockStack);
+
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/components/InlineStack/InlineStack.mjs
+  var InlineStack2 = createRemoteReactComponent(InlineStack);
+
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/components/Select/Select.mjs
+  var Select2 = createRemoteReactComponent(Select);
+
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/components/Text/Text.mjs
+  var Text2 = createRemoteReactComponent(Text);
 
   // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/api.mjs
-  var import_react9 = __toESM(require_react(), 1);
+  var import_react12 = __toESM(require_react(), 1);
 
   // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/errors.mjs
   var CheckoutUIExtensionError = class extends Error {
@@ -19487,67 +19499,168 @@ ${errorInfo.componentStack}`);
       this.name = "CheckoutUIExtensionError";
     }
   };
+  var ExtensionHasNoMethodError = class extends Error {
+    constructor(method, target) {
+      super(`Cannot call '${method}()' on target '${target}'. The corresponding property was not found on the API.`);
+      this.name = "ExtensionHasNoMethodError";
+    }
+  };
 
   // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/api.mjs
   function useApi(_target) {
-    const api = (0, import_react9.useContext)(ExtensionApiContext);
+    const api = (0, import_react12.useContext)(ExtensionApiContext);
     if (api == null) {
       throw new CheckoutUIExtensionError("You can only call this hook when running as a checkout UI extension.");
     }
     return api;
   }
 
-  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/subscription.mjs
-  var import_react10 = __toESM(require_react(), 1);
-  function useSubscription(subscription) {
-    const [, setValue] = (0, import_react10.useState)(subscription.current);
-    (0, import_react10.useEffect)(() => {
-      let didUnsubscribe = false;
-      const checkForUpdates = (newValue) => {
-        if (didUnsubscribe) {
-          return;
-        }
-        setValue(newValue);
-      };
-      const unsubscribe = subscription.subscribe(checkForUpdates);
-      checkForUpdates(subscription.current);
-      return () => {
-        didUnsubscribe = true;
-        unsubscribe();
-      };
-    }, [subscription]);
-    return subscription.current;
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/metafields.mjs
+  var import_react13 = __toESM(require_react(), 1);
+  function useApplyMetafieldsChange() {
+    const api = useApi();
+    if ("applyMetafieldChange" in api) {
+      return api.applyMetafieldChange;
+    }
+    throw new ExtensionHasNoMethodError("applyMetafieldChange", api.extension.target);
   }
 
-  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/storage.mjs
-  function useStorage() {
-    return useApi().storage;
-  }
-
-  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/settings.mjs
-  function useSettings() {
-    const settings = useSubscription(useApi().settings);
-    return settings;
-  }
-
-  // extensions/image-block-extension/src/Checkout.jsx
+  // extensions/react-checkout-extension/src/Checkout.jsx
+  var import_react14 = __toESM(require_react());
   var import_jsx_runtime4 = __toESM(require_jsx_runtime());
-  var image_block = reactExtension("purchase.checkout.block.render", () => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Extension, {}));
+  var Checkout_default = reactExtension("purchase.checkout.block.render", () => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Extension, {}));
   function Extension() {
-    var abc = "";
-    const { image_url, image_title } = useSettings();
-    const localstorage = useStorage();
-    localstorage.delete("lorem  ");
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(BlockStack, { children: [
-      "helo",
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Text, { children: abc }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(Text, { children: [
-        "Image Title : ",
-        image_title,
-        " "
+    var _a, _b;
+    const [handleId] = (0, import_react14.useState)("country-description-bzrsdsuv");
+    const { query } = useApi();
+    const [selectedCountry, setSelectedCountry] = (0, import_react14.useState)("");
+    const [selectedState, setSelectedState] = (0, import_react14.useState)("");
+    const [selectedCity, setSelectedCity] = (0, import_react14.useState)("");
+    const [fetchedData, setFetchedData] = (0, import_react14.useState)(null);
+    const country_key = "customer_country";
+    const state_key = "customer_state";
+    const city_key = "customer_city";
+    const applyMetafieldsChange = useApplyMetafieldsChange();
+    const fetchDropDowndata = () => __async(this, null, function* () {
+      try {
+        const response = yield query(
+          `query($handleId: String!) {
+          metaobject(handle: { handle: $handleId, type: "country_description" }) {
+            fields {
+              value
+            }
+          }
+        }`,
+          { variables: { handleId } }
+        );
+        const data = response == null ? void 0 : response.data;
+        if (data) {
+          const parsedData = JSON.parse(data.metaobject.fields[0].value);
+          setFetchedData(parsedData);
+        }
+      } catch (errors) {
+        console.error(errors);
+      }
+    });
+    (0, import_react14.useEffect)(() => {
+      fetchDropDowndata();
+    }, [handleId, query]);
+    const handleCountryChange = (value) => {
+      setSelectedCountry(value);
+      const countryLabel = fetchedData.countries.find((country) => country.key === value).value;
+      console.log("This is the value for the country change", countryLabel);
+      applyMetafieldsChange({
+        type: "updateMetafield",
+        namespace: "custom",
+        key: country_key,
+        valueType: "string",
+        value: countryLabel
+      });
+      setSelectedState("");
+    };
+    const handleStateChange = (value) => {
+      setSelectedState(value);
+      const stateLabel = fetchedData[selectedCountry].find((state) => state.key === value).value;
+      console.log(stateLabel);
+      applyMetafieldsChange({
+        type: "updateMetafield",
+        namespace: "custom",
+        key: state_key,
+        valueType: "string",
+        value: stateLabel
+      });
+    };
+    const handleCityChange = (value) => {
+      setSelectedCity(value);
+      const cityLabel = fetchedData[selectedState].find((city) => city.key === value).value;
+      console.log(cityLabel);
+      applyMetafieldsChange({
+        type: "updateMetafield",
+        namespace: "custom",
+        key: city_key,
+        valueType: "string",
+        value: cityLabel
+      });
+    };
+    if (!fetchedData) {
+      return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Text2, { children: "Loading..." });
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(BlockStack2, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(InlineStack2, { wrap: false, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Text2, { children: "Select Country:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          Select2,
+          {
+            label: "Country",
+            value: selectedCountry,
+            onChange: handleCountryChange,
+            options: [
+              { value: "", label: "--Your Country--" },
+              ...fetchedData.countries.map((country) => ({
+                value: country.key,
+                label: country.value
+              }))
+            ]
+          }
+        )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Image2, { source: image_url })
+      selectedCountry && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(InlineStack2, { wrap: false, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Text2, { children: "Select State:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          Select2,
+          {
+            label: "State",
+            value: selectedState,
+            onChange: handleStateChange,
+            options: [
+              { value: "", label: "--Your State--" },
+              ...(_a = fetchedData[selectedCountry]) == null ? void 0 : _a.map((state) => ({
+                value: state.key,
+                label: state.value
+              }))
+            ]
+          }
+        )
+      ] }),
+      selectedState && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(InlineStack2, { wrap: false, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Text2, { children: "Select City:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          Select2,
+          {
+            label: "City",
+            value: selectedCity,
+            onChange: handleCityChange,
+            options: [
+              { value: "", label: "--Your City--" },
+              ...(_b = fetchedData[selectedState]) == null ? void 0 : _b.map((city) => ({
+                value: city.key,
+                label: city.value
+              }))
+            ]
+          }
+        )
+      ] })
     ] });
   }
 })();
-//# sourceMappingURL=image-block-extension.js.map
+//# sourceMappingURL=react-checkout-extension.js.map

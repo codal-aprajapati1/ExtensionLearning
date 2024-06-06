@@ -1,0 +1,148 @@
+{
+  "countries": [
+    {
+      "key": "IN",
+      "value": "India"
+    },
+    {
+      "key": "CA",
+      "value": "Canada"
+    },
+    {
+      "key": "US",
+      "value": "United States"
+    }
+  ],
+  "IN": [
+    {
+      "key": "MH",
+      "value": "Maharashtra"
+    },
+    {
+      "key": "GJ",
+      "value": "Gujarat"
+    },
+    {
+      "key": "RJ",
+      "value": "Rajasthan"
+    }
+  ],
+  "CA": [
+    {
+      "key": "ON",
+      "value": "Ontario"
+    },
+    {
+      "key": "QC",
+      "value": "Quebec"
+    },
+    {
+      "key": "BC",
+      "value": "British Columbia"
+    }
+  ],
+  "US": [
+    {
+      "key": "CA",
+      "value": "California"
+    },
+    {
+      "key": "TX",
+      "value": "Texas"
+    },
+    {
+      "key": "NY",
+      "value": "New York"
+    }
+  ],
+  "MH": [
+    {
+      "key": "MUM",
+      "value": "Mumbai"
+    },
+    {
+      "key": "PUN",
+      "value": "Pune"
+    }
+  ],
+  "GJ": [
+    {
+      "key": "AHM",
+      "value": "Ahmedabad"
+    },
+    {
+      "key": "SUR",
+      "value": "Surat"
+    }
+  ],
+  "RJ": [
+    {
+      "key": "JAI",
+      "value": "Jaipur"
+    },
+    {
+      "key": "UDR",
+      "value": "Udaipur"
+    }
+  ],
+  "ON": [
+    {
+      "key": "TOR",
+      "value": "Toronto"
+    },
+    {
+      "key": "OTT",
+      "value": "Ottawa"
+    }
+  ],
+  "QC": [
+    {
+      "key": "MON",
+      "value": "Montreal"
+    },
+    {
+      "key": "QUE",
+      "value": "Quebec City"
+    }
+  ],
+  "BC": [
+    {
+      "key": "VAN",
+      "value": "Vancouver"
+    },
+    {
+      "key": "VIC",
+      "value": "Victoria"
+    }
+  ],
+  "CAL": [
+    {
+      "key": "LA",
+      "value": "Los Angeles"
+    },
+    {
+      "key": "SF",
+      "value": "San Francisco"
+    }
+  ],
+  "TX": [
+    {
+      "key": "HOU",
+      "value": "Houston"
+    },
+    {
+      "key": "DAL",
+      "value": "Dallas"
+    }
+  ],
+  "NY": [
+    {
+      "key": "NYC",
+      "value": "New York City"
+    },
+    {
+      "key": "BUF",
+      "value": "Buffalo"
+    }
+  ]
+}

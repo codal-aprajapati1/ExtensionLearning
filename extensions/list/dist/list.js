@@ -1133,7 +1133,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState2(initialState) {
+          function useState3(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1157,11 +1157,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useLayoutEffect(create, deps);
           }
-          function useCallback(callback, deps) {
+          function useCallback2(callback, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo2(create, deps) {
+          function useMemo3(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1924,7 +1924,7 @@
           exports.memo = memo2;
           exports.startTransition = startTransition;
           exports.unstable_act = act;
-          exports.useCallback = useCallback;
+          exports.useCallback = useCallback2;
           exports.useContext = useContext3;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
@@ -1933,10 +1933,10 @@
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
           exports.useLayoutEffect = useLayoutEffect;
-          exports.useMemo = useMemo2;
+          exports.useMemo = useMemo3;
           exports.useReducer = useReducer;
           exports.useRef = useRef2;
-          exports.useState = useState2;
+          exports.useState = useState3;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -2430,9 +2430,9 @@
         module.exports = function $$$reconciler($$$hostConfig) {
           var exports2 = {};
           "use strict";
-          var React = require_react();
+          var React2 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -6230,7 +6230,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React.Component().refs;
+          var emptyRefsObject = new React2.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -17541,7 +17541,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React = require_react();
+          var React2 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -17567,7 +17567,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -18439,6 +18439,9 @@
     }
   });
 
+  // extensions/list/src/Checkout.jsx
+  var import_react14 = __toESM(require_react());
+
   // node_modules/@remote-ui/rpc/build/esm/memory.mjs
   function isBasicObject(value) {
     if (value == null || typeof value !== "object")
@@ -19140,11 +19143,11 @@
   // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/BlockStack/BlockStack.mjs
   var BlockStack = createRemoteComponent("BlockStack");
 
-  // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/Image/Image.mjs
-  var Image = createRemoteComponent("Image");
+  // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/Checkbox/Checkbox.mjs
+  var Checkbox = createRemoteComponent("Checkbox");
 
-  // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/Text/Text.mjs
-  var Text = createRemoteComponent("Text");
+  // node_modules/@shopify/ui-extensions/build/esm/surfaces/checkout/components/TextField/TextField.mjs
+  var TextField = createRemoteComponent("TextField");
 
   // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/render.mjs
   var import_react6 = __toESM(require_react(), 1);
@@ -19474,11 +19477,19 @@ ${errorInfo.componentStack}`);
     }
   };
 
-  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/components/Image/Image.mjs
-  var Image2 = createRemoteReactComponent(Image);
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/components/BlockStack/BlockStack.mjs
+  var BlockStack2 = createRemoteReactComponent(BlockStack);
+
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/components/Checkbox/Checkbox.mjs
+  var Checkbox2 = createRemoteReactComponent(Checkbox);
+
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/components/TextField/TextField.mjs
+  var TextField2 = createRemoteReactComponent(TextField, {
+    fragmentProps: ["accessory"]
+  });
 
   // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/api.mjs
-  var import_react9 = __toESM(require_react(), 1);
+  var import_react11 = __toESM(require_react(), 1);
 
   // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/errors.mjs
   var CheckoutUIExtensionError = class extends Error {
@@ -19487,10 +19498,16 @@ ${errorInfo.componentStack}`);
       this.name = "CheckoutUIExtensionError";
     }
   };
+  var ExtensionHasNoMethodError = class extends Error {
+    constructor(method, target) {
+      super(`Cannot call '${method}()' on target '${target}'. The corresponding property was not found on the API.`);
+      this.name = "ExtensionHasNoMethodError";
+    }
+  };
 
   // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/api.mjs
   function useApi(_target) {
-    const api = (0, import_react9.useContext)(ExtensionApiContext);
+    const api = (0, import_react11.useContext)(ExtensionApiContext);
     if (api == null) {
       throw new CheckoutUIExtensionError("You can only call this hook when running as a checkout UI extension.");
     }
@@ -19498,10 +19515,10 @@ ${errorInfo.componentStack}`);
   }
 
   // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/subscription.mjs
-  var import_react10 = __toESM(require_react(), 1);
+  var import_react12 = __toESM(require_react(), 1);
   function useSubscription(subscription) {
-    const [, setValue] = (0, import_react10.useState)(subscription.current);
-    (0, import_react10.useEffect)(() => {
+    const [, setValue] = (0, import_react12.useState)(subscription.current);
+    (0, import_react12.useEffect)(() => {
       let didUnsubscribe = false;
       const checkForUpdates = (newValue) => {
         if (didUnsubscribe) {
@@ -19519,6 +19536,30 @@ ${errorInfo.componentStack}`);
     return subscription.current;
   }
 
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/metafields.mjs
+  var import_react13 = __toESM(require_react(), 1);
+  function useApplyMetafieldsChange() {
+    const api = useApi();
+    if ("applyMetafieldChange" in api) {
+      return api.applyMetafieldChange;
+    }
+    throw new ExtensionHasNoMethodError("applyMetafieldChange", api.extension.target);
+  }
+
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/note.mjs
+  function useApplyNoteChange() {
+    const api = useApi();
+    if ("applyNoteChange" in api) {
+      return api.applyNoteChange;
+    }
+    throw new ExtensionHasNoMethodError("applyNoteChange", api.extension.target);
+  }
+
+  // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/cost.mjs
+  function useTotalAmount() {
+    return useSubscription(useApi().cost.totalAmount);
+  }
+
   // node_modules/@shopify/ui-extensions-react/build/esm/surfaces/checkout/hooks/storage.mjs
   function useStorage() {
     return useApi().storage;
@@ -19530,24 +19571,69 @@ ${errorInfo.componentStack}`);
     return settings;
   }
 
-  // extensions/image-block-extension/src/Checkout.jsx
+  // extensions/list/src/Checkout.jsx
   var import_jsx_runtime4 = __toESM(require_jsx_runtime());
-  var image_block = reactExtension("purchase.checkout.block.render", () => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Extension, {}));
+  var Checkout_default = reactExtension("purchase.checkout.block.render", () => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Extension, {}));
   function Extension() {
-    var abc = "";
-    const { image_url, image_title } = useSettings();
+    const [textFieldValue, setTextFieldValue] = (0, import_react14.useState)("");
+    const [checked, setChecked] = (0, import_react14.useState)(false);
+    const { checkbox_title, status, display_block, total_amount_basis } = useSettings();
+    const handleTextFieldChange = (0, import_react14.useCallback)((value) => setTextFieldValue(value), []);
+    const handleChange = () => {
+      setChecked(!checked);
+    };
+    const applyMetafieldsChange = useApplyMetafieldsChange();
+    const ApplyNoteChange = useApplyNoteChange();
+    const totalAmount = useTotalAmount();
     const localstorage = useStorage();
-    localstorage.delete("lorem  ");
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(BlockStack, { children: [
-      "helo",
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Text, { children: abc }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(Text, { children: [
-        "Image Title : ",
-        image_title,
-        " "
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Image2, { source: image_url })
+    const read_promise = localstorage.read("key1").then((result) => {
+      console.log(result, "no");
+    });
+    const handleUpdateMetafields = (value) => {
+      if (status === "metafields") {
+        applyMetafieldsChange({
+          type: "updateMetafield",
+          namespace: "custom",
+          key: "customer_message",
+          valueType: "string",
+          value
+        });
+      } else if (status === "notes") {
+        ApplyNoteChange({
+          type: "updateNote",
+          note: value
+        });
+      } else {
+        console.log("none");
+      }
+    };
+    let shouldDisplayBlock = false;
+    if (total_amount_basis === "greater than the amount entered" && totalAmount.amount > display_block) {
+      shouldDisplayBlock = true;
+    } else if (total_amount_basis === "less than the amount entered" && totalAmount.amount < display_block) {
+      shouldDisplayBlock = true;
+    } else if (total_amount_basis === "equal to the entered amount" && totalAmount.amount === display_block) {
+      shouldDisplayBlock = true;
+    }
+    if (!shouldDisplayBlock) {
+      return null;
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(BlockStack2, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Checkbox2, { id: "checkbox", name: "checkbox", checked, onChange: handleChange, children: checkbox_title }),
+      checked && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+        TextField2,
+        {
+          label: "Enter Message",
+          maxLength: 100,
+          autoComplete: "off",
+          value: textFieldValue,
+          onChange: (e) => {
+            handleTextFieldChange(e);
+            handleUpdateMetafields(e);
+          }
+        }
+      )
     ] });
   }
 })();
-//# sourceMappingURL=image-block-extension.js.map
+//# sourceMappingURL=list.js.map

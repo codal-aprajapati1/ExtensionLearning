@@ -3,7 +3,7 @@
 client_id = "b5b1a58f6dd413d72deb258ad97396cb"
 name = "image-block"
 handle = "image-block"
-application_url = "https://becoming-scripting-root-economy.trycloudflare.com"
+application_url = "https://arising-implementation-begun-hang.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://becoming-scripting-root-economy.trycloudflare.com/auth/callback",
-  "https://becoming-scripting-root-economy.trycloudflare.com/auth/shopify/callback",
-  "https://becoming-scripting-root-economy.trycloudflare.com/api/auth/callback"
+  "https://arising-implementation-begun-hang.trycloudflare.com/auth/callback",
+  "https://arising-implementation-begun-hang.trycloudflare.com/auth/shopify/callback",
+  "https://arising-implementation-begun-hang.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
